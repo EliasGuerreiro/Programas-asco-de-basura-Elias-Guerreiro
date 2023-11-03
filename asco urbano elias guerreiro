@@ -1,0 +1,60 @@
+//programa asco de basura Elias Guerreiro
+
+#include <iostream>
+#include <map>
+
+int main() {
+	//zona de declaracion de variables
+    std::map<int, std:: pair<int, double >> zona_camiones;
+    double total_basura_asco = 0;
+    int zona_max_basura = -1;
+    double max_basura = 0;
+
+//icicio del bucle while
+    while (true) {
+        int zona;
+        double toneladas;
+
+        // leer la entrada al usuario
+        std::cout << "Ingrese el número de zona (-1 para salir): ";
+        std::cin >> zona;
+
+        if (zona == -1) {
+            break;
+        }
+
+        std::cout << "Ingrese las toneladas de basura recolectadas: ";
+        std::cin >> toneladas;
+
+        // Almacenar la información en el mapa
+        zona_camiones[zona].first++;
+        zona_camiones[zona].second += toneladas;
+
+        // Actualizar totales para el Asco Urbano
+        total_basura_asco += toneladas;
+        if (toneladas > max_basura) {
+            max_basura = toneladas;
+            zona_max_basura = zona;
+        }
+    }
+
+    // Imprimir información por zona
+    std::cout << "Información por zona:" << std::endl;
+    //inicio del bucle for
+    for (const auto& pair : zona_camiones) {
+        int zona = pair.first;
+        int cantidad_camiones = pair.second.first;
+        double total_basura_zona = pair.second.second;
+
+        double promedio_basura = total_basura_zona / cantidad_camiones;
+
+        std::cout << "Zona " << zona << ": Cantidad de camiones recolectores de basura: " << cantidad_camiones << ", Toneladas de basura recolectada: " << total_basura_zona << ", Promedio de basura recolectada: " << promedio_basura << std::endl;
+    }
+
+    // Imprimir información por el Asco Urbano
+    std::cout << "Información por el Asco Urbano:" << std::endl;
+    std::cout << "Toneladas de basura recolectadas por el Asco Urbano: " << total_basura_asco << " toneladas" << std::endl;
+    std::cout << "Zona donde se recolectó más basura: Zona " << zona_max_basura << " (" << max_basura << " toneladas)" << std::endl;
+
+    return 0;
+}
